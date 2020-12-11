@@ -3,10 +3,12 @@ package Talisca;
 import Talisca.model.Assignment;
 import Talisca.model.TaliscaEngine;
 import javafx.animation.*;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -127,6 +129,11 @@ public class HomeController extends AbstractController{
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setPannable(true);
+
+        scrollPane.setOnScroll(event -> {
+            scrollPane.setTranslateX(scrollPane.getTranslateX() + event.getDeltaX());
+            scrollPane.setTranslateY(scrollPane.getTranslateY() + event.getDeltaY());
+        });
 
         List<GridPane> asmts = new ArrayList<>();
         for (Assignment assignment : taliscaEngine.getAssignments()) {
