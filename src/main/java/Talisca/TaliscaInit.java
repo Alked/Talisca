@@ -6,6 +6,7 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.TouchEvent;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -20,6 +21,7 @@ public class TaliscaInit {
     public TaliscaInit(TaliscaEngine engine, Stage stage) throws IOException {
         taliscaEngine = engine;
         System.setProperty("prism.lcdtext", "false");
+        stage.addEventFilter(TouchEvent.ANY, e -> System.out.println("touch event: " + e.getEventType()));
         Font.loadFont(getClass().getResourceAsStream("/fonts/HelveticaNeue Medium.ttf"), 14);
         Font.loadFont(getClass().getResourceAsStream("/fonts/HelveticaNeue Thin.ttf"), 14);
         Font.loadFont(getClass().getResourceAsStream("/fonts/HelveticaNeue Light.ttf"), 14);
