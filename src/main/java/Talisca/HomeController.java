@@ -134,6 +134,10 @@ public class HomeController extends AbstractController{
             scrollPane.setVvalue(scrollPane.getVvalue() + event.getDeltaY());
         });
 
+        scrollPane.setOnSwipeDown(event -> {
+            scrollPane.setVvalue(scrollPane.getVvalue() + 100);
+        });
+
         List<GridPane> asmts = new ArrayList<>();
         for (Assignment assignment : taliscaEngine.getAssignments()) {
             asmts.add(asmt2Pane(assignment));
