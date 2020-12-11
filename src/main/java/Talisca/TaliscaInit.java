@@ -32,6 +32,7 @@ public class TaliscaInit {
         stage.setTitle("Talisca");
         stage.setScene(scene);
         stage.setResizable(false);
+	stage.setFullScreen(true);
         stage.show();
     }
 
