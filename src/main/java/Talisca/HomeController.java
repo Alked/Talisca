@@ -131,8 +131,7 @@ public class HomeController extends AbstractController{
         scrollPane.setPannable(true);
 
         scrollPane.setOnScroll(event -> {
-            scrollPane.setTranslateX(scrollPane.getTranslateX() + event.getDeltaX());
-            scrollPane.setTranslateY(scrollPane.getTranslateY() + event.getDeltaY());
+            scrollPane.setVvalue(scrollPane.getVvalue() + event.getDeltaY());
         });
 
         List<GridPane> asmts = new ArrayList<>();
