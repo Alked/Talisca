@@ -2,19 +2,27 @@ package Talisca;
 
 import Talisca.model.Assignment;
 import Talisca.model.TaliscaEngine;
+import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +47,9 @@ public class HomeController extends AbstractController{
 
     @FXML
     private Label sydTime;
+
+    @FXML
+    private Rectangle weekRect;
 
     public HomeController(TaliscaEngine engine) {
         super(engine);
@@ -99,6 +110,11 @@ public class HomeController extends AbstractController{
             assembled.getChildren().addAll(asmt, buildRect4EachAsmt(40 + asmtCount * 140));
         }
         return assembled;
+    }
+
+    @FXML
+    private void setSemInitDay() throws IOException, InterruptedException {
+        TaliscaEngine.retrieveAsm();
     }
 
     @Override

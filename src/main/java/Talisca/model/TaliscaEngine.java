@@ -3,6 +3,13 @@ package Talisca.model;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import javax.net.ssl.HttpsURLConnection;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.*;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -75,5 +82,17 @@ public class TaliscaEngine {
 
     public List<Assignment> getAssignments() {
         return assignments;
+    }
+
+    public static void retrieveAsm() throws IOException, InterruptedException {
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://canvas.sydney.edu.au/"))
+                .build();
+
+        HttpResponse<String> response = client.send(request,
+                HttpResponse.BodyHandlers.ofString());
+
+        System.out.println(response.body());
     }
 }
