@@ -37,9 +37,14 @@
       <Label layoutX="133.0" layoutY="117.0" prefHeight="33.0" prefWidth="54.0" style="-fx-font-family: HelveticaNeue Thin; -fx-font-size: 25;" text="SYD" textFill="WHITE" />
       <Label fx:id="pekTime" alignment="CENTER" layoutX="199.0" layoutY="173.0" prefHeight="30.0" prefWidth="146.0" style="-fx-font-family: HelveticaNeue Thin; -fx-font-size: 23;" text="19 : 50 : 22" textFill="WHITE" />
       <Label fx:id="sydTime" alignment="CENTER" layoutX="200.0" layoutY="119.0" prefHeight="30.0" prefWidth="146.0" style="-fx-font-family: HelveticaNeue Thin; -fx-font-size: 23;" text="22 : 50 : 22" textFill="WHITE" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" height="30.0" layoutX="493.0" layoutY="114.0" stroke="BLACK" strokeType="INSIDE" width="455.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="59.0" layoutX="502.0" layoutY="88.0" stroke="BLACK" strokeType="INSIDE" width="518.0">
          <effect>
-            <BoxBlur height="8.03" iterations="3" width="0.0" />
+            <BoxBlur height="20.18" iterations="3" />
+         </effect>
+      </Rectangle>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="59.0" layoutX="502.0" layoutY="527.0" stroke="BLACK" strokeType="INSIDE" width="518.0">
+         <effect>
+            <BoxBlur height="20.18" iterations="3" />
          </effect>
       </Rectangle>
    </children>

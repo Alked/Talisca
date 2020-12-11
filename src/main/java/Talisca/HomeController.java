@@ -6,6 +6,7 @@ import javafx.animation.*;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.ScrollEvent;
@@ -52,6 +53,7 @@ public class HomeController extends AbstractController{
 
     @FXML
     private Rectangle weekRect;
+
 
     public HomeController(TaliscaEngine engine) {
         super(engine);
@@ -111,6 +113,21 @@ public class HomeController extends AbstractController{
             asmt.setLayoutY(60 + asmtCount * 140);
             assembled.getChildren().addAll(asmt, buildRect4EachAsmt(40 + asmtCount * 140));
         }
+        Node lastAssignment = assembled.getChildren().get(assembled.getChildren().size() - 1);
+        Label endOfList = new Label("No more published assignments.");
+        endOfList.setAlignment(Pos.CENTER);
+        endOfList.setFont(Font.font("Helvetica Neue Thin"));
+        endOfList.setTextFill(Paint.valueOf("WHITE"));
+        endOfList.setLayoutX(0);
+        endOfList.setPrefSize(380, 100);
+        endOfList.setLayoutY(lastAssignment.getLayoutY() + 80);
+        endOfList.setOnMouseClicked(event -> {
+            Timeline timeline = new Timeline();
+            KeyValue asmGoUp = new KeyValue(scrollPane.vvalueProperty(), 0);
+            timeline.getKeyFrames().add(new KeyFrame(Duration.millis(800), asmGoUp));
+            timeline.play();
+        });
+        assembled.getChildren().add(endOfList);
         return assembled;
     }
 
@@ -121,6 +138,7 @@ public class HomeController extends AbstractController{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         date.textProperty().bind(taliscaEngine.getDate());
         pekTime.textProperty().bind(taliscaEngine.getPekTime());
         sydTime.textProperty().bind(taliscaEngine.getSydTime());
@@ -129,14 +147,6 @@ public class HomeController extends AbstractController{
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setPannable(true);
-
-        scrollPane.setOnScroll(event -> {
-            scrollPane.setVvalue(scrollPane.getVvalue() + event.getDeltaY());
-        });
-
-        scrollPane.setOnSwipeDown(event -> {
-            scrollPane.setVvalue(scrollPane.getVvalue() + 100);
-        });
 
         List<GridPane> asmts = new ArrayList<>();
         for (Assignment assignment : taliscaEngine.getAssignments()) {
