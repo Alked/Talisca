@@ -56,11 +56,11 @@ public class HomeController extends AbstractController{
         Label dueAt = new Label();
         dueAt.textProperty().bind(assignment.getDueDateProperty());
 
-        unit.setFont(Font.font("Helvetica Light", FontWeight.BOLD, 23));
+        unit.setFont(Font.font("Helvetica Light", 23));
         unit.setTextAlignment(TextAlignment.LEFT);
         name.setFont(Font.font("Helvetica Light", 14));
         name.setTextAlignment(TextAlignment.LEFT);
-        dueIn.setFont(Font.font("Helvetica Light", FontWeight.BOLD, 23));
+        dueIn.setFont(Font.font("Helvetica Light", 23));
         dueIn.setTextAlignment(TextAlignment.LEFT);
         dueAt.setFont(Font.font("Helvetica Light", 14));
         dueAt.setTextAlignment(TextAlignment.LEFT);
