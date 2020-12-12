@@ -18,11 +18,11 @@ public class Assignment {
     private final OffsetDateTime dueDate;
     private final OffsetDateTime unlockDate;
 
-    public Assignment(String unit, String name, String dueDate, String unlockDate) {
+    public Assignment(String unit, String name, OffsetDateTime dueDate, OffsetDateTime unlockDate) {
         this.unit = new SimpleStringProperty(unit);
         this.name = new SimpleStringProperty(name);
-        this.dueDate = OffsetDateTime.parse(dueDate);
-        this.unlockDate = OffsetDateTime.parse(unlockDate);
+        this.dueDate = dueDate;
+        this.unlockDate = unlockDate;
         dueInProperty = new SimpleStringProperty();
         update();
         dueDateProperty = new SimpleStringProperty("Due at " + (DateTimeFormatter.ofPattern("yyyy-MM-dd")).format(this.dueDate));
@@ -30,6 +30,10 @@ public class Assignment {
 
     public boolean isAvailable() {
         return unlockDate.isAfter(OffsetDateTime.now());
+    }
+
+    public boolean isOverDue() {
+        return dueDate.isBefore(OffsetDateTime.now());
     }
 
     public StringProperty getUnit() {

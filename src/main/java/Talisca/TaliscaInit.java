@@ -6,7 +6,6 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.TouchEvent;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -33,7 +32,7 @@ public class TaliscaInit {
         stage.setTitle("Talisca");
         stage.setScene(scene);
         stage.setResizable(false);
-	stage.setFullScreen(true);
+	    stage.setFullScreen(true);
         stage.show();
     }
 
@@ -42,7 +41,7 @@ public class TaliscaInit {
                 t -> {
                     try {
                         update();
-                    } catch (IOException e) {
+                    } catch (IOException | InterruptedException e) {
                         e.printStackTrace();
                     }
                 }));
@@ -51,7 +50,7 @@ public class TaliscaInit {
         timeline.play();
     }
 
-    private void update() throws IOException {
+    private void update() throws IOException, InterruptedException {
         taliscaEngine.update();
     }
 }

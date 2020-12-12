@@ -3,26 +3,17 @@ package Talisca;
 import Talisca.model.Assignment;
 import Talisca.model.TaliscaEngine;
 import javafx.animation.*;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.input.ScrollEvent;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.StrokeType;
+import javafx.scene.shape.*;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -52,7 +43,7 @@ public class HomeController extends AbstractController{
     private Label sydTime;
 
     @FXML
-    private Rectangle weekRect;
+    private Rectangle weekRect, shadeRectG, shadeRectR;
 
 
     public HomeController(TaliscaEngine engine) {
@@ -63,6 +54,7 @@ public class HomeController extends AbstractController{
         GridPane asmt = new GridPane();
         Label unit = new Label();
         unit.textProperty().bind(assignment.getUnit());
+        unit.setMaxSize(135, 20);
         Label name = new Label();
         name.setMaxSize(135, 20);
         name.textProperty().bind(assignment.getName());
@@ -113,14 +105,21 @@ public class HomeController extends AbstractController{
             asmt.setLayoutY(60 + asmtCount * 140);
             assembled.getChildren().addAll(asmt, buildRect4EachAsmt(40 + asmtCount * 140));
         }
-        Node lastAssignment = assembled.getChildren().get(assembled.getChildren().size() - 1);
+
         Label endOfList = new Label("No more published assignments.");
         endOfList.setAlignment(Pos.CENTER);
         endOfList.setFont(Font.font("Helvetica Neue Thin"));
         endOfList.setTextFill(Paint.valueOf("WHITE"));
         endOfList.setLayoutX(0);
         endOfList.setPrefSize(380, 100);
-        endOfList.setLayoutY(lastAssignment.getLayoutY() + 80);
+
+        if (assembled.getChildren().size() > 0) {
+            Node lastAssignment = assembled.getChildren().get(assembled.getChildren().size() - 1);
+            endOfList.setLayoutY(lastAssignment.getLayoutY() + 80);
+        } else {
+            endOfList.setLayoutY(80);
+        }
+
         endOfList.setOnMouseClicked(event -> {
             Timeline timeline = new Timeline();
             KeyValue asmGoUp = new KeyValue(scrollPane.vvalueProperty(), 0);
@@ -133,7 +132,71 @@ public class HomeController extends AbstractController{
 
     @FXML
     private void setSemInitDay() throws IOException, InterruptedException {
-        TaliscaEngine.retrieveAsm();
+        weekRectLoadAnimate();
+        taliscaEngine.updateWeekNumber();
+    }
+
+    private void weekRectLoadAnimate() {
+        var tlDG = new TranslateTransition(Duration.millis(60), shadeRectG);
+        tlDG.setByY(4);
+        tlDG.setCycleCount(1);
+        tlDG.setAutoReverse(false);
+
+        var tlLG = new TranslateTransition(Duration.millis(60), shadeRectG);
+        tlLG.setByX(-4);
+        tlLG.setCycleCount(1);
+        tlLG.setAutoReverse(false);
+
+        var tlUG = new TranslateTransition(Duration.millis(60), shadeRectG);
+        tlUG.setByY(-4);
+        tlUG.setCycleCount(1);
+        tlUG.setAutoReverse(false);
+
+        var tlRG = new TranslateTransition(Duration.millis(60), shadeRectG);
+        tlRG.setByX(4);
+        tlRG.setCycleCount(1);
+        tlRG.setAutoReverse(false);
+
+        var tlUR = new TranslateTransition(Duration.millis(60), shadeRectR);
+        tlUR.setByY(-4);
+        tlUR.setCycleCount(1);
+        tlUR.setAutoReverse(false);
+
+        var tlRR = new TranslateTransition(Duration.millis(60), shadeRectR);
+        tlRR.setByX(4);
+        tlRR.setCycleCount(1);
+        tlRR.setAutoReverse(false);
+
+        var tlDR = new TranslateTransition(Duration.millis(60), shadeRectR);
+        tlDR.setByY(4);
+        tlDR.setCycleCount(1);
+        tlDR.setAutoReverse(false);
+
+        var tlLR = new TranslateTransition(Duration.millis(60), shadeRectR);
+        tlLR.setByX(-4);
+        tlLR.setCycleCount(1);
+        tlLR.setAutoReverse(false);
+
+        var plDGUR = new ParallelTransition();
+        plDGUR.getChildren().addAll(tlDG, tlUR);
+        plDGUR.setCycleCount(1);
+
+        var plLGRR = new ParallelTransition();
+        plLGRR.getChildren().addAll(tlLG, tlRR);
+        plLGRR.setCycleCount(1);
+
+        var plUGDR = new ParallelTransition();
+        plUGDR.getChildren().addAll(tlUG, tlDR);
+        plUGDR.setCycleCount(1);
+
+        var plRGLR = new ParallelTransition();
+        plRGLR.getChildren().addAll(tlRG, tlLR);
+        plRGLR.setCycleCount(1);
+
+        var seqt = new SequentialTransition();
+        seqt.getChildren().addAll(plDGUR, plLGRR, plUGDR, plRGLR);
+        seqt.setCycleCount(4);
+        seqt.play();
     }
 
     @Override
@@ -143,6 +206,7 @@ public class HomeController extends AbstractController{
         pekTime.textProperty().bind(taliscaEngine.getPekTime());
         sydTime.textProperty().bind(taliscaEngine.getSydTime());
         weekday.textProperty().bind(taliscaEngine.getWeekday());
+        weekNo.textProperty().bind(taliscaEngine.getWeekNo());
 
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -150,7 +214,9 @@ public class HomeController extends AbstractController{
 
         List<GridPane> asmts = new ArrayList<>();
         for (Assignment assignment : taliscaEngine.getAssignments()) {
-            asmts.add(asmt2Pane(assignment));
+            if (assignment.isAvailable() && !assignment.isOverDue()) {
+                asmts.add(asmt2Pane(assignment));
+            }
         }
 
         scrollPane.setContent(assembleAsmts(asmts));

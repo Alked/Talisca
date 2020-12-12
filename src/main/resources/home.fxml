@@ -10,6 +10,8 @@
 <AnchorPane prefHeight="600.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Rectangle height="600.0" stroke="BLACK" strokeType="INSIDE" width="1024.0" />
+      <Rectangle fx:id="shadeRectG" arcHeight="35.0" arcWidth="35.0" fill="#00f8ff" height="66.0" layoutX="195.0" layoutY="297.0" onMouseClicked="#setSemInitDay" stroke="#00f8ff" strokeType="INSIDE" width="70.0" />
+      <Rectangle fx:id="shadeRectR" arcHeight="35.0" arcWidth="35.0" fill="#ff0066" height="66.0" layoutX="191.0" layoutY="301.0" onMouseClicked="#setSemInitDay" stroke="#ff0066" strokeType="INSIDE" width="70.0" />
       <Rectangle fx:id="weekRect" arcHeight="35.0" arcWidth="35.0" fill="WHITE" height="66.0" layoutX="193.0" layoutY="299.0" onMouseClicked="#setSemInitDay" stroke="WHITE" strokeType="INSIDE" width="70.0" />
       <ScrollPane fx:id="scrollPane" focusTraversable="false" hbarPolicy="NEVER" hmax="0.0" layoutX="525.0" layoutY="120.0" pannable="true" prefHeight="423.0" prefWidth="407.0" style="-fx-background: black; -fx-background-color: black;" vbarPolicy="NEVER" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="525.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="120.0" />
       <Label fx:id="date" alignment="CENTER" layoutX="69.0" layoutY="48.0" prefHeight="42.0" prefWidth="315.0" style="-fx-font-family: HelveticaNeue Thin; -fx-font-size: 40;" text="2020-11-29" textFill="WHITE">
@@ -35,8 +37,8 @@
       </Label>
       <Label layoutX="134.0" layoutY="172.0" style="-fx-font-family: HelveticaNeue Thin; -fx-font-size: 25;" text="PEK" textFill="WHITE" />
       <Label layoutX="133.0" layoutY="117.0" prefHeight="33.0" prefWidth="54.0" style="-fx-font-family: HelveticaNeue Thin; -fx-font-size: 25;" text="SYD" textFill="WHITE" />
-      <Label fx:id="pekTime" alignment="CENTER" layoutX="199.0" layoutY="173.0" prefHeight="30.0" prefWidth="146.0" style="-fx-font-family: HelveticaNeue Thin; -fx-font-size: 23;" text="19 : 50 : 22" textFill="WHITE" />
-      <Label fx:id="sydTime" alignment="CENTER" layoutX="200.0" layoutY="119.0" prefHeight="30.0" prefWidth="146.0" style="-fx-font-family: HelveticaNeue Thin; -fx-font-size: 23;" text="22 : 50 : 22" textFill="WHITE" />
+      <Label fx:id="pekTime" alignment="CENTER" layoutX="199.0" layoutY="173.0" prefHeight="30.0" prefWidth="170.0" style="-fx-font-family: HelveticaNeue Thin; -fx-font-size: 23;" text="19 : 50 : 22 AM" textFill="WHITE" />
+      <Label fx:id="sydTime" alignment="CENTER" layoutX="200.0" layoutY="119.0" prefHeight="30.0" prefWidth="170.0" style="-fx-font-family: HelveticaNeue Thin; -fx-font-size: 23;" text="22 : 50 : 22 PM" textFill="WHITE" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="59.0" layoutX="502.0" layoutY="88.0" stroke="BLACK" strokeType="INSIDE" width="518.0">
          <effect>
             <BoxBlur height="20.18" iterations="3" />
